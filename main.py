@@ -56,8 +56,8 @@ def NewAttempt(m):
 def main():
 
     parser = argparse.ArgumentParser(description='Definition of test mode.')
-    parser.add_argument('-MV', type=int, help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE ')
-    parser.add_argument('-utm', action='store_true', help='To take the test in time mode or not')
+    parser.add_argument('-MV', type=int, help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE.')
+    parser.add_argument('-utm', action='store_true', help='To take the test in time mode or not.')
 
     args = vars(parser.parse_args())
 
@@ -66,10 +66,10 @@ def main():
     #Test mode selection
     if args['utm']:
         print('You selected ' + Style.BRIGHT +  'TIME MODE.' + Style.RESET_ALL )
-        print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT+ str(args['MV']) +  Style.RESET_ALL + ' seconds')
+        print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT+ str(args['MV']) +  Style.RESET_ALL + ' seconds.')
     else:
         print('You selected ' + Style.BRIGHT + 'NUMBER OF INPUTS MODE.' + Style.RESET_ALL )
-        print("You will have to type " + Fore.RED + Style.BRIGHT + str(args['MV']) + Style.RESET_ALL + " letters as quick as you can")
+        print("You will have to type " + Fore.RED + Style.BRIGHT + str(args['MV']) + Style.RESET_ALL + " letters as quick as you can.")
 
 
     print('Press a key to start')
