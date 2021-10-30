@@ -77,32 +77,29 @@ def main():
 
     print(Style.BRIGHT  + '\n\nTYPE TEST\n' + Style.RESET_ALL) #Title
 
-    #Prevent test from starting if a max value isn't specified
+    #TO prevent test from starting if a max value isn't specified
     if args['mv'] == None:
         print(Back.RED + 'IMPOSSIBLE TO START. YOU DID NOT INTRODUCE A MAXIMUM VALUE!' + Style.RESET_ALL + '\n')
         exit(0)
 
     #Test mode selection
-    if args['utm']:
+    if args['utm']:   #If time mode is selected
         print('You selected ' + Style.BRIGHT +  'TIME MODE.' + Style.RESET_ALL )
         print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT+ str(args['mv']) +  Style.RESET_ALL + ' seconds.')
         print('\nPress a key to start')
 
         # If a key is pressed, it starts a new attempt
         if readchar.readkey():
-            NewAttempt(args['mv']) #Starts a new TIME MODE attempt
+            NewAttempt(args['mv']) #Starts a new TIME MODE test attempt
 
-    else:
+    else:           #Default: time mode not selected -> Number of inputs mode
         print('You selected ' + Style.BRIGHT + 'NUMBER OF INPUTS MODE.' + Style.RESET_ALL )
         print("You will have to type " + Fore.RED + Style.BRIGHT + str(args['mv']) + Style.RESET_ALL + " letters as quick as you can.")
         print('\nPress a key to start')
 
         # If a key is pressed, it starts a new attempt
         if readchar.readkey():
-            NewAttempt(args['mv']) #Starts a new NUMBER OF INPUTS MODE attempt
-
-
-
+            NewAttempt(args['mv']) #Starts a new NUMBER OF INPUTS MODE test attempt
 
 
 
