@@ -63,13 +63,13 @@ def main():
 
     print(Style.BRIGHT  + 'TYPE TEST' + Style.RESET_ALL)
 
-    #Choice of the test mode
+    #Test mode selection
     if args['utm']:
-        print('You requested ' + Style.BRIGHT +  'TIME MODE.' + Style.RESET_ALL )
+        print('You selected ' + Style.BRIGHT +  'TIME MODE.' + Style.RESET_ALL )
         print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT+ str(args['MV']) +  Style.RESET_ALL + ' seconds')
     else:
-        print('You requested ' + Style.BRIGHT + 'NUMBER OF INPUTS MODE.' + Style.RESET_ALL )
-        print("You will have to type " + Fore.MAGENTA + Style.BRIGHT+ (args['MV']) + Style.RESET_ALL + " letters as quick as you can")
+        print('You selected ' + Style.BRIGHT + 'NUMBER OF INPUTS MODE.' + Style.RESET_ALL )
+        print("You will have to type " + Fore.RED + Style.BRIGHT + str(args['MV']) + Style.RESET_ALL + " letters as quick as you can")
 
 
     print('Press a key to start')
