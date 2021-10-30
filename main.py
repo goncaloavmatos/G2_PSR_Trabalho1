@@ -4,7 +4,9 @@ import argparse
 import random
 import readchar
 
+#=====================================================================================================
 #Generate lower case character
+#=====================================================================================================
 def randLowercaseChar():
     #ASCII lower case char 'a' and 'z' correspond to decimal 97 and 122, respectively
 
@@ -12,6 +14,11 @@ def randLowercaseChar():
     c = chr(n) #Turn number into a character
     return c
 
+
+
+#=====================================================================================================
+#NEW ATTEMPT FUNCTION
+#=====================================================================================================
 def NewAttempt(m):
 
 
@@ -48,35 +55,53 @@ def NewAttempt(m):
             print('You typed ' + Fore.RED + Style.BRIGHT + pressed + Style.RESET_ALL)
 
         if countEntry == MAX:   #If the max value of inputs is reached
+            print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
             print('Correct: ' + str(countMatch))
             print('Wrong: ' + str(countMiss))
             break
 
 
+
+
+#=====================================================================================================
+#MAIN FUNCTION
+#=====================================================================================================
 def main():
 
+    #Definition of the arguments that specify how the test will be taken
     parser = argparse.ArgumentParser(description='Definition of test mode.')
-    parser.add_argument('-MV', type=int, help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE.')
-    parser.add_argument('-utm', action='store_true', help='To take the test in time mode or not.')
+    parser.add_argument('-mv', type=int, help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE.')
+    parser.add_argument('-utm', action='store_true', help='To take the test in TIME MODE or not (Default: NUMBER OF INPUTS MODE).')
 
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args()) #save selected args
 
-    print(Style.BRIGHT  + 'TYPE TEST' + Style.RESET_ALL)
+    print(Style.BRIGHT  + '\n\nTYPE TEST\n' + Style.RESET_ALL) #Title
+
+    #Prevent test from starting if a max value isn't specified
+    if args['mv'] == None:
+        print(Back.RED + 'IMPOSSIBLE TO START. YOU DID NOT INTRODUCE A MAXIMUM VALUE!' + Style.RESET_ALL + '\n')
+        exit(0)
 
     #Test mode selection
     if args['utm']:
         print('You selected ' + Style.BRIGHT +  'TIME MODE.' + Style.RESET_ALL )
-        print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT+ str(args['MV']) +  Style.RESET_ALL + ' seconds.')
+        print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT+ str(args['mv']) +  Style.RESET_ALL + ' seconds.')
+        print('\nPress a key to start')
+
+        # If a key is pressed, it starts a new attempt
+        if readchar.readkey():
+            NewAttempt(args['mv']) #Starts a new TIME MODE attempt
+
     else:
         print('You selected ' + Style.BRIGHT + 'NUMBER OF INPUTS MODE.' + Style.RESET_ALL )
-        print("You will have to type " + Fore.RED + Style.BRIGHT + str(args['MV']) + Style.RESET_ALL + " letters as quick as you can.")
+        print("You will have to type " + Fore.RED + Style.BRIGHT + str(args['mv']) + Style.RESET_ALL + " letters as quick as you can.")
+        print('\nPress a key to start')
+
+        # If a key is pressed, it starts a new attempt
+        if readchar.readkey():
+            NewAttempt(args['mv']) #Starts a new NUMBER OF INPUTS MODE attempt
 
 
-    print('Press a key to start')
-
-    #If a key is pressed, it starts a new attempt
-    if readchar.readkey():
-        NewAttempt(args['MV'])
 
 
 
