@@ -40,7 +40,7 @@ def NewAttempt(m):
         sec_end = time.time()
 
         dif= sec_end - sec_start
-        print('Time to press key: %3.2f'  %dif)
+        print('Time to press key: %3.2f'  %dif) # por so duas casas decimais para o ecra nao ficar muito cheio
 
         #Abort the test if the spacebar is pressed
         if pressed == ' ':
