@@ -28,7 +28,7 @@ def NewAttempt(m):
     countMatch = 0
     countMiss = 0
     MAX = m
-
+    type_average_duration = 0
     while True:
 
         randC=randLowercaseChar() #Generate new character each loop
@@ -40,6 +40,11 @@ def NewAttempt(m):
         sec_end = time.time()
 
         dif= sec_end - sec_start
+        if type_average_duration == 0:
+            type_average_duration=dif
+        else:
+            type_average_duration = (type_average_duration + dif) /2
+
         print('Time to press key: %3.2f'  %dif) # por so duas casas decimais para o ecra nao ficar muito cheio
 
         #Abort the test if the spacebar is pressed
@@ -66,7 +71,7 @@ def NewAttempt(m):
             print('Wrong: ' + str(countMiss))
             break
 
-
+    print('Average time to press key: %3.2f'  %type_average_duration)
 
 
 #=====================================================================================================
