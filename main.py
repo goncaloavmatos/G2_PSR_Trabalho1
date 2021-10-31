@@ -45,7 +45,7 @@ def NewAttempt(m):
         else:
             type_average_duration = (type_average_duration + dif) /2
 
-        print('Time to press key: %3.2f'  %dif) # por so duas casas decimais para o ecra nao ficar muito cheio
+        print('Time to press key: %3.2f'  %dif) # por so duas casas decimais para o ecra nao ficar muito cheio.
 
         #Abort the test if the spacebar is pressed
         if pressed == ' ':
