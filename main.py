@@ -3,6 +3,7 @@ from colorama import Fore, Back, Style
 import argparse
 import random
 import readchar
+import time
 
 #=====================================================================================================
 #Generate lower case character
@@ -32,9 +33,14 @@ def NewAttempt(m):
 
         randC=randLowercaseChar() #Generate new character each loop
         print('Type letter ' + Fore.BLUE + Style.BRIGHT + randC + Style.RESET_ALL) #Ask for letter
+        sec_start = time.time()
         pressed = readchar.readkey() #Save pressed character
 
         pressed_keys = []  # empty list to start
+        sec_end = time.time()
+
+        dif= sec_end - sec_start
+        print('Time to press key: %3.2f'  %dif)
 
         #Abort the test if the spacebar is pressed
         if pressed == ' ':
