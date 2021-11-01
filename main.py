@@ -37,12 +37,10 @@ def NewAttempt(m):
         print('Type letter ' + Fore.BLUE + Style.BRIGHT + randC + Style.RESET_ALL)  # Ask for letter
         sec_start = time.time()
         pressed = readchar.readkey()  # Save pressed character
-
         pressed_keys = []  # empty list to start
         sec_end = time.time()
         dif = sec_end - sec_start
-        I = Input(randC, pressed, dif)
-        Input_list.append(I)
+
         if type_average_duration == 0:
             type_average_duration = dif
         else:
@@ -63,10 +61,13 @@ def NewAttempt(m):
             countMatch += 1  # Accumulates match
             countEntry += 1  # Accumulates entry
             print('You typed ' + Fore.GREEN + Style.BRIGHT + randC + Style.RESET_ALL)
+            I = Input(randC, pressed, dif)
+            Input_list.append(I)
         else:  # If there is no match
             countMiss += 1  # Accumulate Miss
             countEntry += 1  # Accumulate Entry
-
+            I = Input(randC, pressed, dif)
+            Input_list.append(I)
             print('You typed ' + Fore.RED + Style.BRIGHT + pressed + Style.RESET_ALL)
 
         if countEntry == MAX:  # If the max value of inputs is reached
