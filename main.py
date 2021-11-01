@@ -28,6 +28,8 @@ def NewAttempt(m):
     countMiss = 0
     MAX = m
     type_average_duration = 0
+    type_hit_average_duration = 0
+    type_miss_average_duration = 0
     # Elements for the dictionary
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     Input_list = []
@@ -36,17 +38,22 @@ def NewAttempt(m):
         randC = randLowercaseChar()  # Generate new character each loop
         print('Type letter ' + Fore.BLUE + Style.BRIGHT + randC + Style.RESET_ALL)  # Ask for letter
         sec_start = time.time()
+        sec_start_hit = time.time()
+        sec_start_miss = time.time()
         pressed = readchar.readkey()  # Save pressed character
         pressed_keys = []  # empty list to start
+
         sec_end = time.time()
+
         dif = sec_end - sec_start
+
 
         if type_average_duration == 0:
             type_average_duration = dif
         else:
             type_average_duration = (type_average_duration + dif) / 2
 
-        print('Time to press key: %3.2f' % dif)  # por so duas casas decimais para o ecra nao ficar muito cheio.
+        #print('Time to press key: %3.2f' % dif)  # por so duas casas decimais para o ecra nao ficar muito cheio.
 
         # Abort the test if the spacebar is pressed
         if pressed == ' ':
@@ -58,17 +65,36 @@ def NewAttempt(m):
 
         # If the pressed character matches the character that is requested
         if pressed == randC:
+            sec_end_hit = time.time()
+            dif_hit = sec_end_hit - sec_start_hit
+
             countMatch += 1  # Accumulates match
             countEntry += 1  # Accumulates entry
             print('You typed ' + Fore.GREEN + Style.BRIGHT + randC + Style.RESET_ALL)
+            #print('Time to press key: %3.2f' % dif_hit)
             I = Input(randC, pressed, dif)
             Input_list.append(I)
+            if type_hit_average_duration == 0:
+                type_hit_average_duration = dif_hit
+            else:
+                type_hit_average_duration = (type_hit_average_duration + dif_hit) / 2
+
+
         else:  # If there is no match
+            sec_end_miss = time.time()
+            dif_miss = sec_end_miss - sec_start_miss
+            #print('Time to press key: %3.2f' % dif_miss)
+
             countMiss += 1  # Accumulate Miss
             countEntry += 1  # Accumulate Entry
             I = Input(randC, pressed, dif)
             Input_list.append(I)
             print('You typed ' + Fore.RED + Style.BRIGHT + pressed + Style.RESET_ALL)
+            if type_miss_average_duration == 0:
+                type_miss_average_duration = dif_miss
+            else:
+                type_miss_average_duration = (type_miss_average_duration + dif_miss) / 2
+
 
         if countEntry == MAX:  # If the max value of inputs is reached
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
@@ -77,6 +103,8 @@ def NewAttempt(m):
             break
 
     print('Average time to press key: %3.2f' % type_average_duration)
+    print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
+    print('Average time to press right key: %3.2f' % type_hit_average_duration)
     print(Input_list)
 
 
