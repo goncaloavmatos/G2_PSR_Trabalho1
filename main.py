@@ -105,7 +105,11 @@ def NewAttempt(m):
     print('Average time to press key: %3.2f' % type_average_duration)
     print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
     print('Average time to press right key: %3.2f' % type_hit_average_duration)
-    print(Input_list)
+
+    for i in range(0,MAX):
+
+        print(Input_list[i])
+
 
 
 # =====================================================================================================
