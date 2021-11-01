@@ -96,7 +96,7 @@ def NewAttempt(m):
                 type_miss_average_duration = (type_miss_average_duration + dif_miss) / 2
 
 
-        if countEntry == MAX:  # If the max value of inputs is reached
+        if countEntry == MAX:  # If the max value of inputs is reached.
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
             print('Correct: ' + str(countMatch))
             print('Wrong: ' + str(countMiss))
