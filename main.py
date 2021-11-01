@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+import datetime
+
 from colorama import Fore, Back, Style
 from collections import namedtuple
+from datetime import datetime
 import argparse
 import random
 import readchar
@@ -32,7 +35,9 @@ def NewAttempt(m):
     type_miss_average_duration = 0
     # Elements for the dictionary
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
+    #Dates = namedtuple('Dates', ['d_week', 'month', 'd_month','time','year'])
     Input_list = []
+    #Data_inicio = Dates(datetime.now.weekday, datetime.now.month(), datetime.now.day, datetime.now.time, datetime.now.year)
     while True:
 
         randC = randLowercaseChar()  # Generate new character each loop
@@ -101,11 +106,12 @@ def NewAttempt(m):
             print('Correct: ' + str(countMatch))
             print('Wrong: ' + str(countMiss))
             break
-
     print('Average time to press key: %3.2f' % type_average_duration)
     print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
     print('Average time to press right key: %3.2f' % type_hit_average_duration)
     print(Input_list)
+    #print(Data_inicio)
+
 
 
 # =====================================================================================================
