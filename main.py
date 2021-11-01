@@ -26,13 +26,19 @@ def NewAttempt(m):
     countEntry = 0
     countMatch = 0
     countMiss = 0
+
+    #variable with the max value
     MAX = m
+
     type_average_duration = 0
     type_hit_average_duration = 0
     type_miss_average_duration = 0
+
     # Elements for the dictionary
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     Input_list = []
+
+
     while True:
 
         randC = randLowercaseChar()  # Generate new character each loop
@@ -41,7 +47,6 @@ def NewAttempt(m):
         sec_start_hit = time.time()
         sec_start_miss = time.time()
         pressed = readchar.readkey()  # Save pressed character
-        pressed_keys = []  # empty list to start
 
         sec_end = time.time()
 
@@ -74,21 +79,24 @@ def NewAttempt(m):
             #print('Time to press key: %3.2f' % dif_hit)
             I = Input(randC, pressed, dif)
             Input_list.append(I)
+
             if type_hit_average_duration == 0:
                 type_hit_average_duration = dif_hit
             else:
                 type_hit_average_duration = (type_hit_average_duration + dif_hit) / 2
 
-
-        else:  # If there is no match
+        # If the pressed character does NOT match the character that is requested
+        else:
             sec_end_miss = time.time()
             dif_miss = sec_end_miss - sec_start_miss
             #print('Time to press key: %3.2f' % dif_miss)
 
             countMiss += 1  # Accumulate Miss
             countEntry += 1  # Accumulate Entry
+
             I = Input(randC, pressed, dif)
             Input_list.append(I)
+
             print('You typed ' + Fore.RED + Style.BRIGHT + pressed + Style.RESET_ALL)
             if type_miss_average_duration == 0:
                 type_miss_average_duration = dif_miss
@@ -106,6 +114,8 @@ def NewAttempt(m):
     print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
     print('Average time to press right key: %3.2f' % type_hit_average_duration)
 
+
+    #To print list vertically
     for i in range(0,MAX):
 
         print(Input_list[i])
