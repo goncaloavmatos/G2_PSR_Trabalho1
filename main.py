@@ -111,8 +111,8 @@ def NewAttempt(m):
 
         if countEntry == MAX:  # If the max value of inputs is reached.
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
-            print('Correct: ' + str(countMatch))
-            print('Wrong: ' + str(countMiss))
+            #print('Correct: ' + str(countMatch))
+            #print('Wrong: ' + str(countMiss))
             break
 
     test_end = datetime.now() #Save the test end date and time
@@ -121,10 +121,10 @@ def NewAttempt(m):
     test_duration = test_end.timestamp() - test_start.timestamp()
 
     #Dictionary
-    Dictionary = {'accuracy' : 'algo',
+    Dictionary = {'accuracy' : countMatch/countEntry,
                   'inputs' : Input_list,
-                  'number_of_hits' : 'algo',
-                  'number_of_types' : 'algo',
+                  'number_of_hits' : countMatch,
+                  'number_of_types' : countEntry,
                   'test_duration' : test_duration,
                   'test_end' : test_end_str,
                   'test_start' : test_start_str,
@@ -134,14 +134,14 @@ def NewAttempt(m):
 
     [print(Fore.BLUE, key, Style.RESET_ALL, ':', value) for key, value in Dictionary.items()] #Para testar --- Falta o pretty print
     print('\n')
-    print('Test duration: %3.2f' % test_duration) #Para testar
-    print('Average time to press key: %3.2f' % type_average_duration)
-    print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
-    print('Average time to press right key: %3.2f' % type_hit_average_duration)
-    print('\n')
-    print('Test start: ' + test_start_str) #Para testar
-    print('Test end: ' + test_end_str) #Para testar
-    print('\n')
+    #print('Test duration: %3.2f' % test_duration) #Para testar
+    #print('Average time to press key: %3.2f' % type_average_duration)
+    #print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
+    #print('Average time to press right key: %3.2f' % type_hit_average_duration)
+    #print('\n')
+    #print('Test start: ' + test_start_str) #Para testar
+    #print('Test end: ' + test_end_str) #Para testar
+    #print('\n')
     #To print list vertically
     for i in range(0,MAX):
         print(Input_list[i])
@@ -156,6 +156,8 @@ def main():
     parser = argparse.ArgumentParser(description='Definition of test mode.')
     parser.add_argument('-mv', type=int,
                         help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE.')
+    parser.add_argument('--max_value', type=int,
+                        help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE.')
     parser.add_argument('-utm', action='store_true',
                         help='To take the test in TIME MODE or not (Default: NUMBER OF INPUTS MODE).')
 
@@ -167,6 +169,8 @@ def main():
     if args['mv'] == None:
         print(Back.RED + 'IMPOSSIBLE TO START. YOU DID NOT INTRODUCE A MAXIMUM VALUE!' + Style.RESET_ALL + '\n')
         exit(0)
+
+
 
     # Test mode selection
     if args['utm']:  # If time mode is selected
