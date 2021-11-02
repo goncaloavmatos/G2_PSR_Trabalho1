@@ -22,7 +22,7 @@ def randLowercaseChar():
 # =====================================================================================================
 # NEW ATTEMPT FUNCTION
 # =====================================================================================================
-def NewAttempt(m):
+def NewAttempt(m, start, mode):
     # Counters for statistical analysis at the end of the test
     countEntry = 0
     countMatch = 0
@@ -46,7 +46,7 @@ def NewAttempt(m):
         print('Type letter ' + Fore.BLUE + Style.BRIGHT + randC + Style.RESET_ALL)  # Ask for letter
 
         #o inicio do tempo de teste tem que estar aqui se nao ele inicia quando corres o programa e nao qd inicias o teste
-        test_start = datetime.now()  # Save the test start date and time
+
 
         sec_start = time.time()
         sec_start_hit = time.time()
@@ -55,9 +55,11 @@ def NewAttempt(m):
 
         sec_end = time.time()
 
+
+
         dif = sec_end - sec_start
 
-
+        #Calcular média de tempo de resposta
         if type_average_duration == 0:
             type_average_duration = dif
         else:
@@ -109,42 +111,54 @@ def NewAttempt(m):
                 type_miss_average_duration = (type_miss_average_duration + dif_miss) / 2
 
 
-        if countEntry == MAX:  # If the max value of inputs is reached.
-            print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
-            #print('Correct: ' + str(countMatch))
-            #print('Wrong: ' + str(countMiss))
-            break
 
-    test_end = datetime.now() #Save the test end date and time
-    test_start_str = test_start.strftime('%a %b %d %H:%M:%S %Y') #Convert the test start date and time to the desired format
-    test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y') #Convert the test end date and time to the desired format
-    test_duration = test_end.timestamp() - test_start.timestamp()
 
-    #Dictionary
-    Dictionary = {'accuracy' : countMatch/countEntry,
-                  'inputs' : Input_list,
-                  'number_of_hits' : countMatch,
-                  'number_of_types' : countEntry,
-                  'test_duration' : test_duration,
-                  'test_end' : test_end_str,
-                  'test_start' : test_start_str,
-                  'type_average_duration' : type_average_duration,
-                  'type_hit_average_duration' : type_hit_average_duration,
-                  'type_miss_average_duration' : type_miss_average_duration}
+        if (mode == 0):
+            if countEntry == MAX:  # If the max value of inputs is reached.
+                print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
 
-    [print(Fore.BLUE, key, Style.RESET_ALL, ':', value) for key, value in Dictionary.items()] #Para testar --- Falta o pretty print
+                for i in range(0, MAX):
+                    print(Input_list[i])
+                    test_end = datetime.now()  # Save the test end date and time
+                    break
+
+        time_now = time.time()
+        duration = time_now - start
+
+
+        if duration > MAX:
+
+            if (mode == 1):
+
+                print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
+                test_end = datetime.now()  # Save the test end date and time
+                break
+
+    test_start_str = start.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test start date and time to the desired format
+    test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test end date and time to the desired format
+    test_duration = test_end.timestamp() - start.timestamp()
+
+    # Dictionary
+    Dictionary = {'accuracy': countMatch / countEntry,
+                  'inputs': Input_list,
+                  'number_of_hits': countMatch,
+                  'number_of_types': countEntry,
+                  'test_duration': test_duration,
+                  'test_end': test_end_str,
+                  'test_start': test_start_str,
+                  'type_average_duration': type_average_duration,
+                  'type_hit_average_duration': type_hit_average_duration,
+                  'type_miss_average_duration': type_miss_average_duration}
+
+    [print(Fore.BLUE, key, Style.RESET_ALL, ':', value) for key, value in
+    Dictionary.items()]  # Para testar --- Falta o pretty print
     print('\n')
-    #print('Test duration: %3.2f' % test_duration) #Para testar
-    #print('Average time to press key: %3.2f' % type_average_duration)
-    #print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
-    #print('Average time to press right key: %3.2f' % type_hit_average_duration)
-    #print('\n')
-    #print('Test start: ' + test_start_str) #Para testar
-    #print('Test end: ' + test_end_str) #Para testar
-    #print('\n')
-    #To print list vertically
-    for i in range(0,MAX):
-        print(Input_list[i])
+
+
+
+
+
+
 
 
 
@@ -154,44 +168,49 @@ def NewAttempt(m):
 def main():
     # Definition of the arguments that specify how the test will be taken
     parser = argparse.ArgumentParser(description='Definition of test mode.')
-    parser.add_argument('-mv', type=int,
+    parser.add_argument('-mv', '--max_value', type=int,
                         help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE.')
-    parser.add_argument('--max_value', type=int,
-                        help='Specify max number of seconds for TIME MODE or max number of inputs for NUMBER OF INPUTS MODE.')
-    parser.add_argument('-utm', action='store_true',
+
+    parser.add_argument('-utm', '--use_time_mode', action='store_true',
                         help='To take the test in TIME MODE or not (Default: NUMBER OF INPUTS MODE).')
 
     args = vars(parser.parse_args())  # save selected args
 
+    #igualar mv e max_value e os mesmo para utm
+    args['mv'] = args ['max_value']
+    args['utm'] = args['use_time_mode']
+
     print(Style.BRIGHT + '\n\nTYPE TEST\n' + Style.RESET_ALL)  # Title
 
     # TO prevent test from starting if a max value isn't specified
-    if args['mv'] == None:
+    if (args['mv']) == None:
         print(Back.RED + 'IMPOSSIBLE TO START. YOU DID NOT INTRODUCE A MAXIMUM VALUE!' + Style.RESET_ALL + '\n')
         exit(0)
 
-
+    if (args['max_value']) == None:
+        print(Back.RED + 'IMPOSSIBLE TO START. YOU DID NOT INTRODUCE A MAXIMUM VALUE!' + Style.RESET_ALL + '\n')
+        exit(0)
 
     # Test mode selection
     if args['utm']:  # If time mode is selected
+        time_mode = 1
         print('You selected ' + Style.BRIGHT + 'TIME MODE.' + Style.RESET_ALL)
         print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT + str(
             args['mv']) + Style.RESET_ALL + ' seconds.')
         print('\nPress a key to start')
 
-        # If a key is pressed, it starts a new attempt
-        if readchar.readkey():
-            NewAttempt(args['mv'])  # Starts a new TIME MODE test attempt
 
     else:  # Default: time mode not selected -> Number of inputs mode
+        time_mode = 0
         print('You selected ' + Style.BRIGHT + 'NUMBER OF INPUTS MODE.' + Style.RESET_ALL)
         print("You will have to type " + Fore.RED + Style.BRIGHT + str(
             args['mv']) + Style.RESET_ALL + " letters as quick as you can.")
         print('\nPress a key to start')
 
-        # If a key is pressed, it starts a new attempt
-        if readchar.readkey():
-            NewAttempt(args['mv'])  # Starts a new NUMBER OF INPUTS MODE test attempt
+
+    if readchar.readkey():
+        test_start = time.time()  # Save the test start date and time
+        NewAttempt(args['mv'], test_start, time_mode)  # Starts a new NUMBER OF INPUTS MODE test attempt
 
 
 if __name__ == '__main__':
