@@ -120,6 +120,19 @@ def NewAttempt(m):
     test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y') #Convert the test end date and time to the desired format
     test_duration = test_end.timestamp() - test_start.timestamp()
 
+    #Dictionary
+    Dictionary = {'accuracy' : 'algo',
+                  'inputs' : Input_list,
+                  'number_of_hits' : 'algo',
+                  'number_of_types' : 'algo',
+                  'test_duration' : test_duration,
+                  'test_end' : test_end_str,
+                  'test_start' : test_start_str,
+                  'type_average_duration' : type_average_duration,
+                  'type_hit_average_duration' : type_hit_average_duration,
+                  'type_miss_average_duration' : type_miss_average_duration}
+
+    [print(Fore.BLUE, key, Style.RESET_ALL, ':', value) for key, value in Dictionary.items()] #Para testar --- Falta o pretty print
     print('\n')
     print('Test duration: %3.2f' % test_duration) #Para testar
     print('Average time to press key: %3.2f' % type_average_duration)
@@ -131,7 +144,6 @@ def NewAttempt(m):
     print('\n')
     #To print list vertically
     for i in range(0,MAX):
-
         print(Input_list[i])
 
 
