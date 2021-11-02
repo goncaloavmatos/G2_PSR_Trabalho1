@@ -38,8 +38,7 @@ def NewAttempt(m):
     # Elements for the dictionary
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     Input_list = []
-    test_start = datetime.now().strftime('%a %b %d %H:%M:%S %Y')
-
+    test_start = datetime.now() #Save the test start date and time
 
     while True:
 
@@ -111,12 +110,17 @@ def NewAttempt(m):
             print('Correct: ' + str(countMatch))
             print('Wrong: ' + str(countMiss))
             break
-    test_end = datetime.now().strftime('%a %b %d %H:%M:%S %Y')
+
+    test_end = datetime.now() #Save the test end date and time
+    test_start_str = test_start.strftime('%a %b %d %H:%M:%S %Y') #Convert the test start date and time to the desired format
+    test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y') #Convert the test end date and time to the desired format
+    test_duration = test_end.timestamp() - test_start.timestamp()
+    print(test_duration) #Para testar
     print('Average time to press key: %3.2f' % type_average_duration)
     print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
     print('Average time to press right key: %3.2f' % type_hit_average_duration)
-    print(test_start)
-    print(test_end)
+    print(test_start_str) #Para testar
+    print(test_end_str) #Para testar
     #To print list vertically
     for i in range(0,MAX):
 
