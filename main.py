@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from datetime import datetime
 from colorama import Fore, Back, Style
 from collections import namedtuple
 import argparse
@@ -37,6 +38,7 @@ def NewAttempt(m):
     # Elements for the dictionary
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     Input_list = []
+    test_start = datetime.now().strftime('%a %b %d %H:%M:%S %Y')
 
 
     while True:
@@ -109,12 +111,12 @@ def NewAttempt(m):
             print('Correct: ' + str(countMatch))
             print('Wrong: ' + str(countMiss))
             break
-
+    test_end = datetime.now().strftime('%a %b %d %H:%M:%S %Y')
     print('Average time to press key: %3.2f' % type_average_duration)
     print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
     print('Average time to press right key: %3.2f' % type_hit_average_duration)
-
-
+    print(test_start)
+    print(test_end)
     #To print list vertically
     for i in range(0,MAX):
 
