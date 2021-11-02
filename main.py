@@ -38,12 +38,16 @@ def NewAttempt(m):
     # Elements for the dictionary
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     Input_list = []
-    test_start = datetime.now() #Save the test start date and time
+
 
     while True:
 
         randC = randLowercaseChar()  # Generate new character each loop
         print('Type letter ' + Fore.BLUE + Style.BRIGHT + randC + Style.RESET_ALL)  # Ask for letter
+
+        #o inicio do tempo de teste tem que estar aqui se nao ele inicia quando corres o programa e nao qd inicias o teste
+        test_start = datetime.now()  # Save the test start date and time
+
         sec_start = time.time()
         sec_start_hit = time.time()
         sec_start_miss = time.time()
@@ -115,12 +119,16 @@ def NewAttempt(m):
     test_start_str = test_start.strftime('%a %b %d %H:%M:%S %Y') #Convert the test start date and time to the desired format
     test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y') #Convert the test end date and time to the desired format
     test_duration = test_end.timestamp() - test_start.timestamp()
-    print(test_duration) #Para testar
+
+    print('\n')
+    print('Test duration: %3.2f' % test_duration) #Para testar
     print('Average time to press key: %3.2f' % type_average_duration)
     print('Average time to press wrong key: %3.2f' % type_miss_average_duration)
     print('Average time to press right key: %3.2f' % type_hit_average_duration)
-    print(test_start_str) #Para testar
-    print(test_end_str) #Para testar
+    print('\n')
+    print('Test start: ' + test_start_str) #Para testar
+    print('Test end: ' + test_end_str) #Para testar
+    print('\n')
     #To print list vertically
     for i in range(0,MAX):
 
