@@ -76,9 +76,10 @@ def NewAttempt(m, start, mode):
         time_now = time.time()
         duration = time_now - start
 
+        # ===========================================================================================================
         # CORRECT PRESS
         # If the pressed character matches the character that is requested
-        #......................................................................................................................
+
         if pressed == randC:
             sec_end_hit = time.time()
             dif_hit = sec_end_hit - sec_start_hit
@@ -87,7 +88,7 @@ def NewAttempt(m, start, mode):
             countEntry += 1  # Accumulates entry
 
             if duration > MAX and mode == 1:
-
+                print('\n\n')  #imprimir espaços para destacar letra premida depois do tempo
                 countMatch -= 1  # Accumulates match
                 countEntry -= 1  # Accumulates entry
 
@@ -102,10 +103,10 @@ def NewAttempt(m, start, mode):
                 type_hit_average_duration = (type_hit_average_duration + dif_hit) / 2
 
 
-
+        # ===========================================================================================================
         # WRONG PRESS
         # If the pressed character does NOT match the character that is requested
-        #.......................................................................................................................
+
         else:
             sec_end_miss = time.time()
             dif_miss = sec_end_miss - sec_start_miss
@@ -115,7 +116,7 @@ def NewAttempt(m, start, mode):
             countEntry += 1  # Accumulate Entry
 
             if duration > MAX and mode == 1:
-
+                print('\n\n')  #imprimir espaços para destacar letra premida depois do tempo
                 countMiss -= 1  # Accumulate Miss
                 countEntry -= 1  # Accumulate Entry
 
@@ -131,8 +132,9 @@ def NewAttempt(m, start, mode):
 
 
 
-        #CONDITIONS TO STOP TEST
-        #.......................................................................................................................
+        # CONDITIONS TO STOP TEST
+
+        # ===========================================================================================================
         # Conditions to stop test in NUMBER OF INPUTS MODE
         # First: be in NUMBER OF INPUTS MODE; Second: number of inputs equal to max value
         if (mode == 0) and countEntry == MAX:  # Conditions to stop test in NUMBER OF INPUTS MODE
@@ -144,9 +146,7 @@ def NewAttempt(m, start, mode):
                 #test_end = datetime.now()  # Save the test end date and time
             break
 
-
-
-        #......................................................................................................................
+        # ===========================================================================================================
         # Conditions to stop test in TIME MODE
         # First: be in TIME MODE; Second: test time bigger than max value
         if (mode == 1) and duration >= MAX:
@@ -156,14 +156,14 @@ def NewAttempt(m, start, mode):
             #test_end = datetime.now()  # Save the test end date and time
             break
 
-    #test_start_str = start.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test start date and time to the desired format
-    #test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test end date and time to the desired format
-    #test_duration = test_end.timestamp() - start.timestamp()
+
 
     test_end = time.ctime(time_now)
     test_start = time.ctime(start)
 
     print(Style.BRIGHT + '\nRESULTS AND STATISTICS' + Style.RESET_ALL)
+
+
     # Dictionary
     Dictionary = {'accuracy': countMatch / countEntry,
                   'inputs': Input_list,
@@ -193,6 +193,7 @@ def NewAttempt(m, start, mode):
 # MAIN FUNCTION
 # =====================================================================================================
 def main():
+
     # Definition of the arguments that specify how the test will be taken
     parser = argparse.ArgumentParser(description='Definition of test mode.')
     parser.add_argument('-mv', '--max_value', type=int,
