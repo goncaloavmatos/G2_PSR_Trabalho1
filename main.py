@@ -69,13 +69,13 @@ def NewAttempt(m, start, mode):
 
         # Abort the test if the spacebar is pressed
         if pressed == ' ':
-            print(
-                Fore.RED + Style.BRIGHT + Back.YELLOW + 'You pressed the Spacebar. The test stopped.' + Style.RESET_ALL)
-            print('Correct: ' + str(countMatch))
-            print('Wrong: ' + str(countMiss))
-            break
+            print('\n' +Fore.RED + Style.BRIGHT + Back.YELLOW + 'You pressed the Spacebar. The test stopped.' + Style.RESET_ALL + '\n')
+            exit(0)
 
+
+        # CORRECT PRESS
         # If the pressed character matches the character that is requested
+        #......................................................................................................................
         if pressed == randC:
             sec_end_hit = time.time()
             dif_hit = sec_end_hit - sec_start_hit
@@ -92,7 +92,11 @@ def NewAttempt(m, start, mode):
             else:
                 type_hit_average_duration = (type_hit_average_duration + dif_hit) / 2
 
+
+
+        # WRONG PRESS
         # If the pressed character does NOT match the character that is requested
+        #.......................................................................................................................
         else:
             sec_end_miss = time.time()
             dif_miss = sec_end_miss - sec_start_miss
@@ -110,6 +114,10 @@ def NewAttempt(m, start, mode):
             else:
                 type_miss_average_duration = (type_miss_average_duration + dif_miss) / 2
 
+
+
+        #CONDITIONS TO STOP TEST
+        #.......................................................................................................................
         # Conditions to stop test in NUMBER OF INPUTS MODE
         # First: be in NUMBER OF INPUTS MODE; Second: number of inputs equal to max value
         if (mode == 0) and countEntry == MAX:  # Conditions to stop test in NUMBER OF INPUTS MODE
@@ -118,7 +126,7 @@ def NewAttempt(m, start, mode):
 
             for i in range(0, MAX):
                 print(Input_list[i])
-                test_end = datetime.now()  # Save the test end date and time
+                #test_end = datetime.now()  # Save the test end date and time
             break
 
         time_now = time.time()
@@ -128,21 +136,26 @@ def NewAttempt(m, start, mode):
         # First: be in TIME MODE; Second: test time bigger than max value
         if (mode == 1) and duration > MAX:
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
-            test_end = datetime.now()  # Save the test end date and time
+            #test_end = datetime.now()  # Save the test end date and time
             break
 
-    test_start_str = start.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test start date and time to the desired format
-    test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test end date and time to the desired format
-    test_duration = test_end.timestamp() - start.timestamp()
+    #test_start_str = start.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test start date and time to the desired format
+    #test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test end date and time to the desired format
+    #test_duration = test_end.timestamp() - start.timestamp()
+
+    test_end = time.ctime(time_now)
+    test_start = time.ctime(start)
+
+
 
     # Dictionary
     Dictionary = {'accuracy': countMatch / countEntry,
                   'inputs': Input_list,
                   'number_of_hits': countMatch,
                   'number_of_types': countEntry,
-                  'test_duration': test_duration,
-                  'test_end': test_end_str,
-                  'test_start': test_start_str,
+                  'test_duration': duration,
+                  'test_end': test_end,
+                  'test_start': test_start,
                   'type_average_duration': type_average_duration,
                   'type_hit_average_duration': type_hit_average_duration,
                   'type_miss_average_duration': type_miss_average_duration}
