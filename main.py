@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from datetime import datetime
 from colorama import Fore, Back, Style
 from collections import namedtuple
 import argparse
