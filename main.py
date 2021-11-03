@@ -87,6 +87,7 @@ def NewAttempt(m, start, mode):
             countEntry += 1  # Accumulates entry
 
             if duration > MAX and mode == 1:
+
                 countMatch -= 1  # Accumulates match
                 countEntry -= 1  # Accumulates entry
 
@@ -114,8 +115,10 @@ def NewAttempt(m, start, mode):
             countEntry += 1  # Accumulate Entry
 
             if duration > MAX and mode == 1:
+
                 countMiss -= 1  # Accumulate Miss
                 countEntry -= 1  # Accumulate Entry
+
 
             I = Input(randC, pressed, dif)
             Input_list.append(I)
@@ -147,8 +150,9 @@ def NewAttempt(m, start, mode):
         # Conditions to stop test in TIME MODE
         # First: be in TIME MODE; Second: test time bigger than max value
         if (mode == 1) and duration >= MAX:
+            print(Fore.LIGHTRED_EX + Style.BRIGHT + 'Last type did not count because it was made after ' + str(MAX) + ' seconds.' + '\n' + Style.RESET_ALL)
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
-            print(Fore.LIGHTRED_EX + Style.BRIGHT +'Last type did not count because it was made after ' + str(MAX) + ' seconds.' + '\n' + Style.RESET_ALL)
+
             #test_end = datetime.now()  # Save the test end date and time
             break
 
@@ -159,7 +163,7 @@ def NewAttempt(m, start, mode):
     test_end = time.ctime(time_now)
     test_start = time.ctime(start)
 
-
+    print(Style.BRIGHT + '\nRESULTS AND STATISTICS' + Style.RESET_ALL)
     # Dictionary
     Dictionary = {'accuracy': countMatch / countEntry,
                   'inputs': Input_list,
