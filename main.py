@@ -76,9 +76,11 @@ def NewAttempt(m, start, mode):
         time_now = time.time()
         duration = time_now - start
 
+
+
         # ===========================================================================================================
-        # CORRECT PRESS
-        # If the pressed character matches the character that is requested
+        # CORRECT PRESS: If the pressed character matches the character that is requested
+
 
         if pressed == randC:
             sec_end_hit = time.time()
@@ -104,8 +106,8 @@ def NewAttempt(m, start, mode):
 
 
         # ===========================================================================================================
-        # WRONG PRESS
-        # If the pressed character does NOT match the character that is requested
+        # WRONG PRESS: If the pressed character does NOT match the character that is requested
+
 
         else:
             sec_end_miss = time.time()
@@ -131,7 +133,7 @@ def NewAttempt(m, start, mode):
                 type_miss_average_duration = (type_miss_average_duration + dif_miss) / 2
 
 
-
+        # ===========================================================================================================
         # CONDITIONS TO STOP TEST
 
         # ===========================================================================================================
