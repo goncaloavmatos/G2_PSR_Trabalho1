@@ -6,6 +6,7 @@ import argparse
 import random
 import readchar
 import time
+from pprint import pprint
 
 
 # =====================================================================================================
@@ -147,7 +148,7 @@ def NewAttempt(m, start, mode):
         # First: be in TIME MODE; Second: test time bigger than max value
         if (mode == 1) and duration >= MAX:
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
-            print(Fore.LIGHTRED_EX + Style.BRIGHT +'Last type did not count because it was made after ' + str(MAX) + ' seconds.' + '\n')
+            print(Fore.LIGHTRED_EX + Style.BRIGHT +'Last type did not count because it was made after ' + str(MAX) + ' seconds.' + '\n' + Style.RESET_ALL)
             #test_end = datetime.now()  # Save the test end date and time
             break
 
@@ -171,8 +172,9 @@ def NewAttempt(m, start, mode):
                   'type_hit_average_duration': type_hit_average_duration,
                   'type_miss_average_duration': type_miss_average_duration}
 
-    [print(Fore.BLUE, key, Style.RESET_ALL, ':', value) for key, value in
-    Dictionary.items()]  # Para testar --- Falta o pretty print
+    #[print(Fore.BLUE, key, Style.RESET_ALL, ':', value) for key, value in
+    #Dictionary.items()]  # Para testar --- Falta o pretty print
+    pprint(Dictionary)
     print('\n')
 
 
