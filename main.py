@@ -72,6 +72,8 @@ def NewAttempt(m, start, mode):
             print('\n' +Fore.RED + Style.BRIGHT + Back.YELLOW + 'You pressed the Spacebar. The test stopped.' + Style.RESET_ALL + '\n')
             exit(0)
 
+        time_now = time.time()
+        duration = time_now - start
 
         # CORRECT PRESS
         # If the pressed character matches the character that is requested
@@ -82,6 +84,11 @@ def NewAttempt(m, start, mode):
 
             countMatch += 1  # Accumulates match
             countEntry += 1  # Accumulates entry
+
+            if duration > MAX and mode == 1:
+                countMatch -= 1  # Accumulates match
+                countEntry -= 1  # Accumulates entry
+
             print('You typed ' + Fore.GREEN + Style.BRIGHT + randC + Style.RESET_ALL)
             #print('Time to press key: %3.2f' % dif_hit)
             I = Input(randC, pressed, dif)
@@ -105,6 +112,10 @@ def NewAttempt(m, start, mode):
             countMiss += 1  # Accumulate Miss
             countEntry += 1  # Accumulate Entry
 
+            if duration > MAX and mode == 1:
+                countMiss -= 1  # Accumulate Miss
+                countEntry -= 1  # Accumulate Entry
+
             I = Input(randC, pressed, dif)
             Input_list.append(I)
 
@@ -124,18 +135,19 @@ def NewAttempt(m, start, mode):
 
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
 
-            for i in range(0, MAX):
-                print(Input_list[i])
+            #for i in range(0, MAX):
+             #   print(Input_list[i])
                 #test_end = datetime.now()  # Save the test end date and time
             break
 
-        time_now = time.time()
-        duration = time_now - start
 
+
+        #......................................................................................................................
         # Conditions to stop test in TIME MODE
         # First: be in TIME MODE; Second: test time bigger than max value
-        if (mode == 1) and duration > MAX:
+        if (mode == 1) and duration >= MAX:
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
+            print(Fore.LIGHTRED_EX + Style.BRIGHT +'Last type did not count because it was made after ' + str(MAX) + ' seconds.' + '\n')
             #test_end = datetime.now()  # Save the test end date and time
             break
 
@@ -145,7 +157,6 @@ def NewAttempt(m, start, mode):
 
     test_end = time.ctime(time_now)
     test_start = time.ctime(start)
-
 
 
     # Dictionary
@@ -225,3 +236,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
