@@ -110,29 +110,26 @@ def NewAttempt(m, start, mode):
             else:
                 type_miss_average_duration = (type_miss_average_duration + dif_miss) / 2
 
+        # Conditions to stop test in NUMBER OF INPUTS MODE
+        # First: be in NUMBER OF INPUTS MODE; Second: number of inputs equal to max value
+        if (mode == 0) and countEntry == MAX:  # Conditions to stop test in NUMBER OF INPUTS MODE
 
+            print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
 
-
-        if (mode == 0):
-            if countEntry == MAX:  # If the max value of inputs is reached.
-                print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
-
-                for i in range(0, MAX):
-                    print(Input_list[i])
-                    test_end = datetime.now()  # Save the test end date and time
-                    break
+            for i in range(0, MAX):
+                print(Input_list[i])
+                test_end = datetime.now()  # Save the test end date and time
+            break
 
         time_now = time.time()
         duration = time_now - start
 
-
-        if duration > MAX:
-
-            if (mode == 1):
-
-                print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
-                test_end = datetime.now()  # Save the test end date and time
-                break
+        # Conditions to stop test in TIME MODE
+        # First: be in TIME MODE; Second: test time bigger than max value
+        if (mode == 1) and duration > MAX:
+            print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
+            test_end = datetime.now()  # Save the test end date and time
+            break
 
     test_start_str = start.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test start date and time to the desired format
     test_end_str = test_end.strftime('%a %b %d %H:%M:%S %Y')  # Convert the test end date and time to the desired format
