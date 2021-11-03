@@ -24,7 +24,7 @@ def randLowercaseChar():
 # NEW ATTEMPT FUNCTION
 # =====================================================================================================
 def NewAttempt(m, start, mode):
-    # Counters for statistical analysis at the end of the test
+    # Counters for inputs
     countEntry = 0
     countMatch = 0
     countMiss = 0
@@ -72,14 +72,14 @@ def NewAttempt(m, start, mode):
             print('\n' +Fore.RED + Style.BRIGHT + Back.YELLOW + 'You pressed the Spacebar. The test stopped.' + Style.RESET_ALL + '\n')
             exit(0)
 
-        time_now = time.time()
-        duration = time_now - start
+        time_now = time.time() #Segundos em que é pressionada tecla
+        duration = time_now - start #Diferença entre tempo em que tecla é pressionada e início do teste
 
 
 
         # ===========================================================================================================
         # CORRECT PRESS: If the pressed character matches the character that is requested
-
+        # ===========================================================================================================
 
         if pressed == randC:
             sec_end_hit = time.time()
@@ -88,15 +88,16 @@ def NewAttempt(m, start, mode):
             countMatch += 1  # Accumulates match
             countEntry += 1  # Accumulates entry
 
+            # Se estiver em TIME MODE e duração do teste exceder o máximo...
             if duration > MAX and mode == 1:
                 print('\n\n')  #imprimir espaços para destacar letra premida depois do tempo
-                countMatch -= 1  # Accumulates match
-                countEntry -= 1  # Accumulates entry
-
-            print('You typed ' + Fore.GREEN + Style.BRIGHT + randC + Style.RESET_ALL)
+                countMatch -= 1  # Desconsiderar match tardio
+                countEntry -= 1  # Desconsiderar input tardio
+            print('You typed ' + Fore.GREEN + Style.BRIGHT + randC + Style.RESET_ALL) #Descrever tecla premida
             #print('Time to press key: %3.2f' % dif_hit)
+
             I = Input(randC, pressed, dif)
-            Input_list.append(I)
+            Input_list.append(I)  #Adicionar input ao named tuple
 
             if type_hit_average_duration == 0:
                 type_hit_average_duration = dif_hit
@@ -106,7 +107,7 @@ def NewAttempt(m, start, mode):
 
         # ===========================================================================================================
         # WRONG PRESS: If the pressed character does NOT match the character that is requested
-
+        # ===========================================================================================================
 
         else:
             sec_end_miss = time.time()
@@ -116,16 +117,18 @@ def NewAttempt(m, start, mode):
             countMiss += 1  # Accumulate Miss
             countEntry += 1  # Accumulate Entry
 
+            #Se estiver em TIME MODE e duração do teste exceder o máximo...
             if duration > MAX and mode == 1:
                 print('\n\n')  #imprimir espaços para destacar letra premida depois do tempo
-                countMiss -= 1  # Accumulate Miss
-                countEntry -= 1  # Accumulate Entry
+                countMiss -= 1  # Desconsiderar Miss tardio
+                countEntry -= 1  # Desconsiderar input tardio
 
 
             I = Input(randC, pressed, dif)
-            Input_list.append(I)
+            Input_list.append(I) #Adicionar input ao named tuple
 
-            print('You typed ' + Fore.RED + Style.BRIGHT + pressed + Style.RESET_ALL)
+            print('You typed ' + Fore.RED + Style.BRIGHT + pressed + Style.RESET_ALL) #Descrever tecla premida
+
             if type_miss_average_duration == 0:
                 type_miss_average_duration = dif_miss
             else:
@@ -142,25 +145,21 @@ def NewAttempt(m, start, mode):
 
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
 
-            #for i in range(0, MAX):
-            #    print(Input_list[i])
-            #    test_end = datetime.now()  # Save the test end date and time
             break
 
         # ===========================================================================================================
         # Conditions to stop test in TIME MODE
-        # First: be in TIME MODE; Second: test time bigger than max value
+        # First: be in TIME MODE; Second: test time exceeds max value
 
         if (mode == 1) and duration >= MAX:
             print(Fore.LIGHTRED_EX + Style.BRIGHT + 'Last type did not count because it was made after ' + str(MAX) + ' seconds.' + '\n' + Style.RESET_ALL)
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
 
-            #test_end = datetime.now()  # Save the test end date and time
             break
 
 
-    test_end = time.ctime(time_now)
-    test_start = time.ctime(start)
+    test_end = time.ctime(time_now) #passar segundos de fim para formato diaSem/mês/...
+    test_start = time.ctime(start) #passar segundos de inicio para formato diaSem/mês/...
 
     print(Style.BRIGHT + '\nRESULTS AND STATISTICS' + Style.RESET_ALL)
 
@@ -213,7 +212,7 @@ def main():
 
     # Test mode selection
     if args['utm']:  # If time mode is selected
-        time_mode = 1
+        time_mode = 1 #time mode = 1 means TIME MODE will be used
         print('You selected ' + Style.BRIGHT + 'TIME MODE.' + Style.RESET_ALL)
         print("You will have to type the maximum amount of letters you can in " + Fore.RED + Style.BRIGHT + str(
             args['mv']) + Style.RESET_ALL + ' seconds.')
@@ -221,16 +220,18 @@ def main():
 
 
     else:  # Default: time mode not selected -> Number of inputs mode
-        time_mode = 0
+        time_mode = 0  #time mode = 0 means NUMBER OF INPUTS MODE will be used
         print('You selected ' + Style.BRIGHT + 'NUMBER OF INPUTS MODE.' + Style.RESET_ALL)
         print("You will have to type " + Fore.RED + Style.BRIGHT + str(
             args['mv']) + Style.RESET_ALL + " letters as quick as you can.")
         print('\nPress a key to start')
 
 
+
+    #To start a new test
     if readchar.readkey():
-        test_start = time.time()  # Save the test start date and time
-        NewAttempt(args['mv'], test_start, time_mode)  # Starts a new NUMBER OF INPUTS MODE test attempt
+        test_start = time.time()  # Save the test start time since epoch in secs
+        NewAttempt(args['mv'], test_start, time_mode)  # Starts a new test attempt with parameters (max value, test start time, test mode)
 
 
 if __name__ == '__main__':
