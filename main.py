@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 from colorama import Fore, Back, Style
 from collections import namedtuple
 import argparse
@@ -56,7 +57,6 @@ def NewAttempt(m, start, mode):
         sec_end = time.time()
 
 
-
         dif = sec_end - sec_start
 
         #Calcular média de tempo de resposta
@@ -65,7 +65,7 @@ def NewAttempt(m, start, mode):
         else:
             type_average_duration = (type_average_duration + dif) / 2
 
-        #print('Time to press key: %3.2f' % dif)  # por so duas casas decimais para o ecra nao ficar muito cheio.
+        # print('Time to press key: %3.2f' % dif)  # codigo %3.2f é para por duas casas decimais
 
         # Abort the test if the spacebar is pressed
         if pressed == ' ':
@@ -134,22 +134,23 @@ def NewAttempt(m, start, mode):
 
         # ===========================================================================================================
         # CONDITIONS TO STOP TEST
-
         # ===========================================================================================================
         # Conditions to stop test in NUMBER OF INPUTS MODE
         # First: be in NUMBER OF INPUTS MODE; Second: number of inputs equal to max value
+
         if (mode == 0) and countEntry == MAX:  # Conditions to stop test in NUMBER OF INPUTS MODE
 
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
 
             #for i in range(0, MAX):
-             #   print(Input_list[i])
-                #test_end = datetime.now()  # Save the test end date and time
+            #    print(Input_list[i])
+            #    test_end = datetime.now()  # Save the test end date and time
             break
 
         # ===========================================================================================================
         # Conditions to stop test in TIME MODE
         # First: be in TIME MODE; Second: test time bigger than max value
+
         if (mode == 1) and duration >= MAX:
             print(Fore.LIGHTRED_EX + Style.BRIGHT + 'Last type did not count because it was made after ' + str(MAX) + ' seconds.' + '\n' + Style.RESET_ALL)
             print(Fore.YELLOW + Style.BRIGHT + '\nTest Finished!\n' + Style.RESET_ALL)
@@ -158,14 +159,13 @@ def NewAttempt(m, start, mode):
             break
 
 
-
     test_end = time.ctime(time_now)
     test_start = time.ctime(start)
 
     print(Style.BRIGHT + '\nRESULTS AND STATISTICS' + Style.RESET_ALL)
 
 
-    # Dictionary
+    # Dicionário
     Dictionary = {'accuracy': countMatch / countEntry,
                   'inputs': Input_list,
                   'number_of_hits': countMatch,
@@ -176,17 +176,8 @@ def NewAttempt(m, start, mode):
                   'type_average_duration': type_average_duration,
                   'type_hit_average_duration': type_hit_average_duration,
                   'type_miss_average_duration': type_miss_average_duration}
-
-    #[print(Fore.BLUE, key, Style.RESET_ALL, ':', value) for key, value in
-    #Dictionary.items()]  # Para testar --- Falta o pretty print
     pprint(Dictionary)
     print('\n')
-
-
-
-
-
-
 
 
 
@@ -211,7 +202,7 @@ def main():
 
     print(Style.BRIGHT + '\n\nTYPE TEST\n' + Style.RESET_ALL)  # Title
 
-    # TO prevent test from starting if a max value isn't specified
+    # To prevent test from starting if a max value isn't specified
     if (args['mv']) == None:
         print(Back.RED + 'IMPOSSIBLE TO START. YOU DID NOT INTRODUCE A MAXIMUM VALUE!' + Style.RESET_ALL + '\n')
         exit(0)
